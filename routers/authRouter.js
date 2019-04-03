@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
       const user = await db.findByUser(username);
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user.id, user.username);
-        res.status(201).json({ message: `Welcome ${username}!` }, token);
+        res.status(201).json({ message: `Welcome ${username}!`, token });
       } else {
         res.status(401).json({ message: "You shall not pass!" });
       }
