@@ -4,7 +4,8 @@ const bcrypt = require("bcryptjs");
 
 const createFakeUser = () => ({
   username: faker.internet.userName(),
-  password: faker.internet.password()
+  password: faker.internet.password(),
+  department: faker.commerce.department()
 });
 
 exports.seed = function(knex, Promise) {
@@ -18,7 +19,6 @@ exports.seed = function(knex, Promise) {
 
   fakeUsers.map(user => {
     user.password = bcrypt.hashSync(user.password, 8);
-    user.department = "placeholder department";
   });
 
   return knex("users").insert(fakeUsers);
