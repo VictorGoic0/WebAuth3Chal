@@ -31,7 +31,7 @@ router.post("/login", async (req, res) => {
     try {
       const user = await db.findByUser(username);
       if (user && bcrypt.compareSync(password, user.password)) {
-        const token = generateToken(user.id, user.username);
+        const token = generateToken(user.id, user.department);
         res.status(201).json({ message: `Welcome ${username}!`, token });
       } else {
         res.status(401).json({ message: "You shall not pass!" });
@@ -42,12 +42,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/logout", (req, res) => {});
-
-function generateToken(id, username) {
+function generateToken(id, department) {
   const payload = {
     id,
-    username
+    department
   };
   const options = {
     expiresIn: "1d"

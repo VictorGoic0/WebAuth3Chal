@@ -9,8 +9,8 @@ module.exports = {
   update
 };
 
-async function find() {
-  const users = await db("users");
+async function find(department) {
+  const users = await db("users").where({ department });
   return users;
 }
 

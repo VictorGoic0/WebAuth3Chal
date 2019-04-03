@@ -4,7 +4,7 @@ const restricted = require("./restricted.js");
 
 router.get("/", restricted, async (req, res) => {
   try {
-    const users = await db.find();
+    const users = await db.find(req.headers.department);
     res.status(201).json(users);
   } catch (error) {
     res.status(500).json({ message: `Users could not be found ${error}.` });
